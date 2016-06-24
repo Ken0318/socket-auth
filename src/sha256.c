@@ -4,7 +4,7 @@
 ###########################################
 */
 
-#include "Sha256Calc.h"
+#include <sha256calc.h>
 
 SZ_T Sha256Calc_calcBlock( SZ_INT* DwordBufPtr, SZ_INT* regPtr );
 SZ_T  Sha256Calc_init( Sha256Calc* ObjPtr );
