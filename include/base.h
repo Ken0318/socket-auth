@@ -2,7 +2,7 @@
 #ifndef _BASE_H
 #define _BASE_H 1
 
-#include "SizeDef.h"
+#include <sizedef.h>
 
 #ifndef BASE_INLINE
 #define BASE_INLINE inline

@@ -8,7 +8,7 @@
 #ifndef _SHA256CALC_H
 #define _SHA256CALC_H 1
 
-#include "../Base.h"
+#include <base.h>
 
 typedef struct _Sha256Calc{ 
 	SZ_CHAR  Value[ 32 ]; 
