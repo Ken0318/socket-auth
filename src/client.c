@@ -2,7 +2,7 @@
 #include <string.h> 
 #include <sys/socket.h> 
 #include <netinet/in.h> 
-#include "Sha256calc.h"
+#include "sha256calc.h"
 
 #define MAXDATASIZE 1024
 
