@@ -172,9 +172,3 @@ SZ_T Sha256Calc_calcBlock( SZ_INT* dp, SZ_INT* rp ){
 
 	return RET_OK;
 }
-
-int main()
-{
-    return 0;
-}
-
