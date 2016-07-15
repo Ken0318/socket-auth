@@ -2,7 +2,7 @@
 #include <string.h> 
 #include <sys/socket.h> 
 #include <netinet/in.h> 
-#include <Sha256Calc.h>
+#include <Sha256calc.h>
 
 #define MAXDATASIZE 1024
 
@@ -12,7 +12,7 @@
 
 int main(int argc, char **argv) 
 { 
-    char buf[ MAXDATASIZE] ; 
+    char buf[MAXDATASIZE] ; 
     int sockfd, numbytes; 
     struct sockaddr_in server_addr; 
     Sha256Calc  shac;
