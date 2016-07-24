@@ -1,4 +1,5 @@
 #include <stdio.h> 
+#include <unistd.h>
 #include <string.h> 
 #include <sys/socket.h> 
 #include <netinet/in.h> 
@@ -45,14 +46,17 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    if ((numbytes = recv(sockfd, buf, MAXDATASIZE, 0)) == -1) { 
-        perror ( "recv error" ) ; 
-        return 1; 
-    } 
+    while(1) {
+        if ((numbytes = recv(sockfd, buf, MAXDATASIZE, 0)) == -1) { 
+            perror ( "recv error" ) ; 
+            return 1; 
+        } 
 
-    if (numbytes) { 
-        buf[ numbytes] = '\0' ; 
-    } 
+        if (numbytes) { 
+            buf[numbytes] = '\0' ; 
+        } 
+		sleep(3);
+    }
 
     close(sockfd) ; 
     return 0; 
