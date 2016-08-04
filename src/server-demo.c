@@ -2,6 +2,7 @@
 #include <string.h> 
 #include <sys/socket.h> 
 #include <netinet/in.h> 
+#include <netdb.h>
 #include <stdlib.h>
 #include "sha256calc.h"
 
@@ -10,6 +11,32 @@
 #define SERVERPORT 8000
 #define MAXCONN_NUM 10
 #define AUTH_FILE "/home/auth.key"
+
+void doprocessing (int sock) 
+{
+   int n;
+   char buffer[256];
+
+   while (1) {
+   	   bzero(buffer,256);
+       n = read(sock,buffer,255);
+   
+       if (n < 0) {
+          perror("ERROR reading from socket");
+          exit(1);
+       }
+   
+       printf("Here is the message from client: %s\n",buffer);
+       n = write(sock,"I got your message",18);
+   
+       if (n < 0) {
+          perror("ERROR writing to socket");
+          exit(1);
+       }
+    }
+	
+}
+
 
 int main( )
 { 
@@ -22,6 +49,7 @@ int main( )
     char enc_data[256] = {0};
     Sha256Calc  shac;
     FILE *fp;
+	int pid;
 
     fp = fopen(AUTH_FILE, "r");
     if (fp == NULL)
@@ -73,17 +101,23 @@ int main( )
                 close(new_fd);
             }
 
-            sleep(3) ; 
         }
 
-        if (send(new_fd, "hi~~", 5, 0) == -1) { 
-            perror("send error") ; 
-            return 1; 
-        } 
+		pid = fork();
+		  
+		if (pid < 0) {
+		   perror("ERROR on fork");
+		   exit(1);
+		}
+		
+		if (pid == 0) {
+		   /* This is the client process */
+		   doprocessing(new_fd);
+		   exit(0);
+		} else {
+		   close(new_fd);
+		}
 
-        if (new_fd) {
-            close(new_fd);
-        }
     } 
 
     return 0; 

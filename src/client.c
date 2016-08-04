@@ -18,6 +18,7 @@ int main(int argc, char **argv)
     struct sockaddr_in server_addr; 
     Sha256Calc  shac;
     char enc_data[256] = {0};
+	char send_data[256] = {0};
  
     FILE *fp;
     fp = fopen(AUTH_FILE, "r");
@@ -47,15 +48,20 @@ int main(int argc, char **argv)
     }
 
     while(1) {
+		printf("input your data send to server:");
+		scanf("%s", send_data);
+		if (send(sockfd, send_data, strlen(send_data), 0) == -1) {
+            perror ( "send error" ) ;
+        }
+
         if ((numbytes = recv(sockfd, buf, MAXDATASIZE, 0)) == -1) { 
             perror ( "recv error" ) ; 
-            return 1; 
         } 
 
         if (numbytes) { 
             buf[numbytes] = '\0' ; 
         } 
-		sleep(3);
+		printf("Here is the message from server: %s\n",buf);
     }
 
     close(sockfd) ; 
